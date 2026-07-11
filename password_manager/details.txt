@@ -1,0 +1,12 @@
+Password Manager Features:
+1. Add password to a file (website -> username -> password)
+2. View all passwords
+3. Search passwords
+4. Delete passwords
+5. Exit
+
+Other Features:
+1. Encrypting password
+
+Steps:
+Storing details into dictionary, and a list of dictionaries
