@@ -1,6 +1,7 @@
 #imports
 from password_manager import *
 from storage import loadPasswords
+from authentication import Authentication
 
 def startMenu(manager):
     while True:
@@ -27,7 +28,16 @@ def startMenu(manager):
 
 # main function
 def main():
-    manager = PasswordManager()
-    startMenu(manager);
+    auth = Authentication()
+
+    while True:
+        if not auth.hasMasterPassword():
+            auth.createMasterPassword()
+
+        if auth.verifyPassword():
+            manager = PasswordManager()
+            startMenu(manager);
+        else:
+            print("Incorrect Password")
 
 main()

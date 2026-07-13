@@ -4,6 +4,7 @@ from storage import savePasswords, loadPasswords
 class PasswordManager:
     def __init__(self):
         self.__passwords = loadPasswords()
+        self.__masterPassword = None
 
     def __str__(self):
         return f"The password manager holds {len(self.__passwords)} passwords"
