@@ -20,7 +20,7 @@ def loadPasswords():
             passwords = []
 
             for item in data:
-                password = Password(item["Website"], item["Username"], item["Password"])
+                password = Password.fromDictionary(item)
                 passwords.append(password)
 
             return passwords

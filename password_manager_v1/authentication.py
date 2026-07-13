@@ -5,31 +5,38 @@ import json
 class Authentication:
     def __init__(self):
         self.__masterHash = self.loadMasterHash()
+        self.__unlocked = False
+
+    def isUnlocked(self):
+        return self.__unlocked
 
     def createMasterPassword(self):
-        if self.__masterHash is None:
-            masterPassword = input("Enter New Master Password: ")
-            confirm = input("Confirm New Master Password: ")
+        while True:
+            if self.__masterHash is None:
+                masterPassword = input("Enter New Master Password: ")
+                confirm = input("Confirm New Master Password: ")
 
-            if (masterPassword == confirm):
-                hashed = self.hashPassword(masterPassword)
+                if (masterPassword == confirm):
+                    hashed = self.hashPassword(masterPassword)
 
-                self.saveMasterHash(hashed)
-                self.__masterHash = hashed
-            else:
-                print("Passwords do not match")
-        return
+                    self.saveMasterHash(hashed)
+                    self.__masterHash = hashed
+                    break
+                
+                else:
+                    print("Passwords do not match")
 
     def verifyPassword(self):
         masterPassword = input("Enter Master Password: ")
-        hashed = self.hashPassword(masterPassword)
-        
-        return hashed == self.__masterHash
+        if self.__masterHash == self.hashPassword(masterPassword):
+            self.__unlocked = True
+            return True
+        return False
 
     def hasMasterPassword(self):
         return self.__masterHash is not None
 
-    @staticmethod # means function does not need to access the self object 
+    @staticmethod # function does not need to access the self object 
     def hashPassword(masterPassword):
         return hashlib.sha256(masterPassword.encode()).hexdigest()
 
