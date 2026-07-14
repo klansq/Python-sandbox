@@ -46,7 +46,7 @@ class PasswordManager:
         searching = input("Searching for (website): ")
 
         for password in self.__passwords:
-            if password.website ==  searching:
+            if password.getWebsite().lower() == searching.lower():
                 print(password)
                 return
             
@@ -73,11 +73,21 @@ class PasswordManager:
         website = input("Website: ")
 
         for password in self.__passwords:
-            if password.website == website:
+            if password.getWebite() == website:
                 self.__passwords.remove(password)
                 self.save()
 
                 print("Password deleted")
                 return
 
+        print("Website not found")
+
+    # 6 
+    def revealPassword(self):
+        website = input("Website: ")
+
+        for password in self.__passwords:
+            if password.getWebsite().lower() == website.lower():
+                print(f"Website: {password.getWebsite()} \nUsername: {password.getUsername()} \nPassword: {password.getPassword()}")
+                return
         print("Website not found")

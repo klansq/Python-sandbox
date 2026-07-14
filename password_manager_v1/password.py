@@ -4,32 +4,49 @@ import string
 
 class Password:
     def __init__(self, website, username, password = None):
-        self.website = website
-        self.username = username
+        self.__website = website
+        self.__username = username
 
         if password is None:
-            self.password = encryptData(self.generatePassword(12))
+            self.__password = encryptData(self.generatePassword(12))
         else:
-            self.password = encryptData(password)
+            self.__password = encryptData(password)
 
     def toDictionary(self):
         return { 
-            "Website" : self.website,
-            "Username" : self.username,
-            "Password" : self.password.decode()
+            "Website" : self.__website,
+            "Username" : self.__username,
+            "Password" : self.__password.decode()
         }
     
-    def __str__(self):
-        return f"Website: {self.website}\nUsername: {self.username}\nPassword: {self.getPassword()}"
+    # getters
+    def getWebsite(self): 
+        return self.__website
+    
+    def getUsername(self):
+        return self.__username
+    
+    def getPassword(self):
+        return self.__password
+    
+    # setters
+    def setWebsite(self, website):
+        self.__website = website
 
     def setUsername(self, username):
-        self.username = username
+        self.__username = username
+    
+    def __str__(self):
+        return f"Website: {self.__website}\nUsername: {self.__username}\nPassword: {'*' * 12}"
+
+    def setUsername(self, username):
+        self.__username = username
 
     def setPassword(self, password):
-        self.password = encryptData(password)
+        self.__password = encryptData(password)
 
     def getPassword(self):
-        return decryptData(self.password)
+        return decryptData(self.__password)
 
     # password generation
     def generatePassword(self, length = 12):
@@ -42,7 +59,7 @@ class Password:
         return password
     
     def display(self):
-        print(f"Website: {self.website}\nUsername: {self.username}\nPassword: {self.getPassword()}\n----------------")
+        print(f"Website: {self.__website}\nUsername: {self.__username}\nPassword: {self.getPassword()}\n----------------")
     
     @classmethod # class itself, not exist obj
     def fromDictionary(cls, data):

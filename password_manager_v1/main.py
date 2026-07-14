@@ -6,7 +6,7 @@ from authentication import Authentication
 def startMenu(manager):
     while True:
         print(" ==== Password Manager ==== ")
-        print("1. Add Password \n2. View Password \n3. Search \n4. Update Password \n5. Remove Password\n6. Quit \n ")
+        print("1. Add Password \n2. View Password \n3. Search \n4. Update Password \n5. Remove Password\n6. Reveal Passwords\n7. Quit \n ")
 
         selection = input("Select a number: ")
 
@@ -22,6 +22,8 @@ def startMenu(manager):
             case "5":
                 manager.deletePassword()
             case "6":
+                manager.revealPassword()
+            case "7":
                 return
             case _:
                 print("Invalid Choice")
@@ -34,10 +36,10 @@ def main():
         if not auth.hasMasterPassword():
             auth.createMasterPassword()
 
-        if auth.verifyPassword():
-            manager = PasswordManager()
-            startMenu(manager);
-        else:
-            print("Incorrect Password")
+        while not auth.verifyPassword():
+            print("Incorrect password")
+
+        manager = PasswordManager()
+        startMenu(manager)
 
 main()
