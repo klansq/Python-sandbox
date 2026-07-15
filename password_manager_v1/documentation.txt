@@ -1,7 +1,0 @@
-Pathway:
-1. Built | DONE
-2. Refactor | DONE
-3. OOP | DONE
-4. Database
-5. Encryption
-6. GUI
